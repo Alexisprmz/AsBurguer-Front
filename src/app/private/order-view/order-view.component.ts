@@ -101,7 +101,7 @@ async placeOrder() {
     
       this._snackBar.open("Orden realizada", "", { duration: 3000, verticalPosition: 'top' });
       
-      // Si es cliente se reditije a sus ordenes 
+     
       if (this.rol === 3) {
         this._router.navigate(['private/my-orders']);
       } else {

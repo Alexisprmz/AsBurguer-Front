@@ -1,28 +1,32 @@
 <div class="order-detail-dialog">
   
   <div class="dialog-header">
-    <div class="header-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.5"/>
-        <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="header-text">
-      <h2>Detalles de la Orden</h2>
+    <div class="header-content">
+      <div class="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h2>Orden Detalle</h2>
+        <span class="order-id">#{{ orderDetails?.[0]?.idorder || '---' }}</span>
+      </div>
     </div>
   </div>
 
   <mat-dialog-content class="dialog-content">
     <div class="client-info">
       <div class="client-avatar">
-        <span>{{ orderDetails?.[0]?.client?.charAt(0)?.toUpperCase() }}</span>
+        {{ orderDetails?.[0]?.client?.charAt(0)?.toUpperCase() }}
       </div>
       <div class="client-details">
         <p class="client-label">Cliente</p>
         <p class="client-name">{{ orderDetails?.[0]?.client }}</p>
       </div>
     </div>
+
     <div class="products-list">
       @for (eachOrder of orderDetails; track eachOrder.idorderdetail) {
         <div class="product-card">
@@ -39,35 +43,47 @@
               <h4 class="product-name">{{ eachOrder?.product }}</h4>
             </div>
           </div>
-          @if (eachOrder?.comments_product) {
-            <div class="product-comment">
-              <span class="comment-label">Nota:</span>
-              <p class="comment-text">{{ eachOrder?.comments_product }}</p>
-            </div>
-          }
-          @if (eachOrder?.ingredients?.length) {
-            <div class="ingredients-list">
-              @for (notIngredient of eachOrder?.ingredients; track notIngredient.name) {
-                <div class="ingredient-item">
-                  @if (notIngredient?.type == 0) {
-                    <span class="ingredient-exception">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14"/>
-                      </svg>
-                      Sin {{ notIngredient?.name }}
-                    </span>
-                  } @else {
-                    <span class="ingredient-extra">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M5 12h14"/>
-                      </svg>
-                      Extra {{ notIngredient?.name }}
-                    </span>
+
+          <div class="product-body">
+            @if (eachOrder?.comments_product) {
+              <div class="product-comment">
+                <span class="comment-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  Nota
+                </span>
+                <p class="comment-text">{{ eachOrder?.comments_product }}</p>
+              </div>
+            }
+
+            @if (eachOrder?.ingredients?.length) {
+              <div class="ingredients-section">
+                <div class="section-title">Modificaciones</div>
+                <div class="ingredients-list">
+                  @for (notIngredient of eachOrder?.ingredients; track notIngredient.name) {
+                    <div class="ingredient-item">
+                      @if (notIngredient?.type == 0) {
+                        <span class="ingredient-exception">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14"/>
+                          </svg>
+                          Sin {{ notIngredient?.name }}
+                        </span>
+                      } @else {
+                        <span class="ingredient-extra">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 5v14M5 12h14"/>
+                          </svg>
+                          Extra {{ notIngredient?.name }}
+                        </span>
+                      }
+                    </div>
                   }
                 </div>
-              }
-            </div>
-          }
+              </div>
+            }
+          </div>
         </div>
       }
     </div>
@@ -81,7 +97,7 @@
       <button [mat-dialog-close]="true" 
               class="btn-primary"
               (click)="updateStatus()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M5 12l5 5L20 7"/>
         </svg>
         Orden Lista
