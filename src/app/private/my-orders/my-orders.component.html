@@ -1,0 +1,103 @@
+<div class="my-orders-page">
+  <div class="page-header">
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 16L16.7201 15.2733C19.4486 15.046 20.0611 14.45 20.3635 11.7289L21 6"/>
+        <path d="M6 6H6.5M22 6H19.5"/>
+        <path d="M8 20L15 20"/>
+        <path d="M2 2H2.966C3.91068 2 4.73414 2.62459 4.96326 3.51493L7.93852 15.0765C8.08887 15.6608 7.9602 16.2797 7.58824 16.7616L6.63213 18"/>
+      </svg>
+      Mis Órdenes
+    </h1>
+  </div>
+
+  <mat-tab-group fitInkBarToContent class="orders-tabs">
+    @for (eachStatus of status; track $index) {
+      <mat-tab label="{{eachStatus.name}}">
+        <div class="tab-content">
+          @if (filterByStatus(eachStatus.value).length === 0) {
+            <div class="empty-state">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 15s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+              <h3>No tienes órdenes {{ eachStatus.name.toLowerCase() }}</h3>
+              <p>Cuando realices una orden, aparecerá aquí</p>
+            </div>
+          } @else {
+            <section class="table-wrapper">
+              <table mat-table [dataSource]="filterByStatus(eachStatus.value)" class="orders-table">
+                
+                <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <div class="header-content">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                      </svg>
+                      Total
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="total-cell">
+                      <span class="total-amount">{{ element.total | currency:'MXN' }}</span>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="comments">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <div class="header-content">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                      </svg>
+                      Comentarios
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="comments-cell">
+                      @if (element.comments) {
+                        <div class="comment-box">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                          </svg>
+                          <span>{{ element.comments }}</span>
+                        </div>
+                      } @else {
+                        <span class="no-comments">Sin comentarios</span>
+                      }
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="function">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <div class="header-content">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6m6-9h-6m0 6h6"/>
+                      </svg>
+                      Acciones
+                    </div>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="actions-cell">
+                      <button class="btn-view" (click)="openOrderDetailDialog(element)">
+                        Ver Detalles
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </section>
+          }
+        </div>
+      </mat-tab>
+    }
+  </mat-tab-group>
+</div>

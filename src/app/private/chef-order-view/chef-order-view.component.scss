@@ -1,0 +1,381 @@
+.chef-page {
+  padding: 2rem 6%;
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #2d5f3f 0%, #1a3a28 100%);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(45, 95, 63, 0.2);
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+
+      svg {
+        width: 32px;
+        height: 32px;
+        color: #fbbf24;
+      }
+    }
+
+    .orders-count {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      .count-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #fbbf24;
+        color: #1a1a1a;
+        font-weight: 700;
+        font-size: 1.25rem;
+        border-radius: 50%;
+      }
+
+      .count-label {
+        color: white;
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+    }
+  }
+
+  .table-section {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+
+    .table-wrapper {
+      overflow-x: auto;
+
+      .chef-table {
+        width: 100%;
+
+        ::ng-deep {
+          .mat-mdc-header-row {
+            background: linear-gradient(to bottom, #f9fafb 0%, #f5f5f5 100%);
+          }
+
+          .mat-mdc-header-cell {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: #1a1a1a;
+            border-bottom: 2px solid #e5e5e5;
+            padding: 1.25rem 1.5rem;
+
+            .header-content {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+
+              svg {
+                width: 18px;
+                height: 18px;
+                color: #2d5f3f;
+              }
+            }
+          }
+
+          .mat-mdc-cell {
+            padding: 1.5rem 1.5rem;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 0.9375rem;
+          }
+
+          .mat-mdc-row {
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: #fafafa;
+              transform: scale(1.005);
+            }
+
+            &:last-child .mat-mdc-cell {
+              border-bottom: none;
+            }
+          }
+        }
+
+        .client-cell {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .client-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+          }
+
+          .client-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a1a1a;
+          }
+        }
+
+        .comments-cell {
+          max-width: 400px;
+
+          .comment-box {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-left: 3px solid #fbbf24;
+            border-radius: 10px;
+
+            svg {
+              width: 18px;
+              height: 18px;
+              color: #f59e0b;
+              flex-shrink: 0;
+              margin-top: 0.125rem;
+            }
+
+            span {
+              color: #1a1a1a;
+              line-height: 1.5;
+              font-size: 0.9375rem;
+            }
+          }
+
+          .no-comments {
+            color: #999;
+            font-style: italic;
+            font-size: 0.875rem;
+          }
+        }
+
+        .actions-cell {
+          display: flex;
+          justify-content: center;
+
+          .btn-complete {
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            background: linear-gradient(135deg, #2d5f3f 0%, #1a3a28 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(45, 95, 63, 0.25);
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+
+            &:hover {
+              background: linear-gradient(135deg, #234c32 0%, #0f1f17 100%);
+              box-shadow: 0 6px 20px rgba(45, 95, 63, 0.35);
+              transform: translateY(-2px);
+            }
+
+            &:active {
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .order-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .order {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+
+      h4 {
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 1024px) {
+    .page-header {
+      h1 {
+        font-size: 1.75rem;
+
+        svg {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      .orders-count {
+        .count-badge {
+          width: 36px;
+          height: 36px;
+          font-size: 1.125rem;
+        }
+
+        .count-label {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 4%;
+
+    .page-header {
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      h1 {
+        font-size: 1.5rem;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .orders-count {
+        padding: 0.5rem 1rem;
+
+        .count-badge {
+          width: 32px;
+          height: 32px;
+          font-size: 1rem;
+        }
+
+        .count-label {
+          font-size: 0.8125rem;
+        }
+      }
+    }
+
+    .table-section {
+      border-radius: 16px;
+
+      .table-wrapper {
+        .chef-table {
+          ::ng-deep {
+            .mat-mdc-header-cell,
+            .mat-mdc-cell {
+              padding: 1rem;
+              font-size: 0.875rem;
+            }
+
+            .mat-mdc-row:hover {
+              transform: none;
+            }
+          }
+
+          .client-cell {
+            .client-avatar {
+              width: 36px;
+              height: 36px;
+              font-size: 1rem;
+            }
+
+            .client-name {
+              font-size: 0.9375rem;
+            }
+          }
+
+          .comments-cell {
+            max-width: 250px;
+
+            .comment-box {
+              padding: 0.625rem 0.75rem;
+
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+
+              span {
+                font-size: 0.875rem;
+              }
+            }
+          }
+
+          .actions-cell {
+            .btn-complete {
+              padding: 0.75rem 1.25rem;
+              font-size: 0.875rem;
+              width: 100%;
+
+              svg {
+                width: 18px;
+                height: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .table-section {
+      .table-wrapper {
+        .chef-table {
+          .client-cell {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+          }
+
+          .comments-cell {
+            max-width: 180px;
+          }
+        }
+      }
+    }
+  }
+}

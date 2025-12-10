@@ -1,0 +1,282 @@
+.user-form-dialog {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  min-width: 500px;
+
+  .dialog-header {
+    background: linear-gradient(135deg, #2d5f3f 0%, #1a3a28 100%);
+    padding: 2rem 2.5rem;
+    margin: -24px -24px 2rem -24px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 16px 16px 0 0;
+
+    .header-icon {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: white;
+        stroke-width: 1.5;
+      }
+    }
+
+    .header-text {
+      flex: 1;
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 0.25rem 0;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+      }
+    }
+  }
+
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .form-field {
+      width: 100%;
+
+      .full-width {
+        width: 100%;
+      }
+
+      .field-icon {
+        display: flex;
+        align-items: center;
+        margin-right: 0.5rem;
+        color: #666;
+
+        svg {
+          width: 1.125rem;
+          height: 1.125rem;
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e5e5;
+
+      button {
+        flex: 1;
+        padding: 0.875rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        svg {
+          width: 1.125rem;
+          height: 1.125rem;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #2d5f3f 0%, #1a3a28 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(45, 95, 63, 0.3);
+
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #234c32 0%, #0f1f17 100%);
+          box-shadow: 0 6px 16px rgba(45, 95, 63, 0.4);
+          transform: translateY(-1px);
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+      }
+
+      .btn-delete {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+
+        &:hover {
+          background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+          box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+          transform: translateY(-1px);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    min-width: unset;
+    width: 100%;
+
+    .dialog-header {
+      padding: 1.5rem 1.25rem;
+      margin: -16px -16px 1.5rem -16px;
+
+      .header-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+
+      .header-text {
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        p {
+          font-size: 0.8125rem;
+        }
+      }
+    }
+
+    .user-form {
+      gap: 1rem;
+
+      .form-actions {
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .user-form-dialog {
+    .mat-mdc-form-field {
+      .mat-mdc-text-field-wrapper {
+        background: white;
+      }
+
+      &.mat-form-field-appearance-outline {
+        .mat-mdc-form-field-flex {
+          padding: 0 0.75rem;
+        }
+
+        .mdc-notched-outline {
+          .mdc-notched-outline__leading,
+          .mdc-notched-outline__trailing {
+            border-color: #e5e5e5;
+            transition: border-color 0.2s ease;
+          }
+        }
+
+        &.mat-focused {
+          .mdc-notched-outline {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+              border-color: #2d5f3f !important;
+              border-width: 2px !important;
+            }
+          }
+
+          .mat-mdc-form-field-label {
+            color: #2d5f3f !important;
+          }
+        }
+
+        &.mat-form-field-invalid {
+          .mdc-notched-outline {
+            .mdc-notched-outline__leading,
+            .mdc-notched-outline__notch,
+            .mdc-notched-outline__trailing {
+              border-color: #dc2626 !important;
+            }
+          }
+        }
+      }
+
+      .mat-mdc-form-field-label {
+        color: #666;
+        font-weight: 500;
+      }
+
+      input,
+      .mat-mdc-select {
+        font-size: 0.9375rem;
+        color: #1a1a1a;
+        font-weight: 500;
+      }
+
+      .mat-mdc-form-field-error {
+        font-size: 0.8125rem;
+        color: #dc2626;
+      }
+    }
+
+    .mat-mdc-select-panel {
+      border-radius: 12px !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+
+      .mat-mdc-option {
+        font-size: 0.9375rem;
+        padding: 0.75rem 1rem;
+
+        &.mat-mdc-option-active {
+          background: #f9fafb;
+        }
+
+        &.mat-mdc-option-selected {
+          background: rgba(45, 95, 63, 0.1);
+          color: #2d5f3f;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background: #f9fafb;
+        }
+      }
+    }
+  }
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+  }
+}

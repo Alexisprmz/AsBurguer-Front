@@ -1,0 +1,33 @@
+<div class="confirm-order-dialog">
+  
+  <h2 mat-dialog-title class="dialog-title">
+    Realizar Orden
+  </h2>
+
+  <mat-dialog-content class="dialog-content">
+    <div class="content-wrapper">
+      <div class="check-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <p class="message">¿Está seguro de realizar esta orden?</p>
+      <p class="submessage">La orden será enviada a la cocina.</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button [mat-dialog-close]="false" class="btn-cancel">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+      Cancelar
+    </button>
+    <button [mat-dialog-close]="true" class="btn-confirm" cdkFocusInitial (click)="openOrderDetails()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      Confirmar
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,314 @@
+<div class="order-container" [formGroup]="order.formOrder">
+  <div class="products-panel" [class.full-width]="orderEmpty()">
+    <section class="category-section">
+      <div class="category-header">
+        <h2 class="category-title">Tus favoritos</h2>
+        <p class="category-description">
+          Aquí puedes ver y ordenar solo los productos que has marcado como
+          favoritos.
+        </p>
+      </div>
+
+      <div class="products-grid">
+        @for (product of favoriteProducts(); track product.idproducts) {
+          <div class="product-card">
+            <div class="product-content">
+              @if (rol === 3) {
+                <button
+                  type="button"
+                  class="favorite-btn"
+                  [class.active]="isFavorite(product.idproducts)"
+                  [disabled]="loadingFavorites"
+                  (click)="toggleFavorite(product.idproducts)"
+                  [title]="
+                    isFavorite(product.idproducts)
+                      ? 'Quitar de favoritos'
+                      : 'Agregar a favoritos'
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    class="favorite-icon"
+                    fill="currentColor"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                    />
+                  </svg>
+                </button>
+              }
+
+              <div class="product-image-wrapper">
+                @if (product.category_idcategory === 1) {
+                  <img
+                    src="../../../assets/Hamburguesa.png"
+                    alt="Hamburguesa"
+                    class="product-image"
+                  />
+                } @else if (product.category_idcategory === 2) {
+                  <img
+                    src="../../../assets/Alitas.png"
+                    alt="Alitas"
+                    class="product-image"
+                  />
+                } @else if (product.category_idcategory === 3) {
+                  <img
+                    [src]="'../../../assets/' + product.name + '.png'"
+                    (error)="$any($event.target).src='../../../assets/Snack.png'"
+                    alt="Snack"
+                    class="product-image"
+                  />
+                } @else {
+                  <img
+                    src="../../../assets/Snack.png"
+                    alt="Producto"
+                    class="product-image"
+                  />
+                }
+              </div>
+
+              <h4 class="product-name">{{ product.name }}</h4>
+              <p class="product-description">
+                {{ product.description }}
+              </p>
+              <span class="product-price">
+                {{ product.price | currency }}
+              </span>
+
+              <div
+                class="quantity-control"
+                [ngClass]="{ active: amount(product.idproducts) > 0 }"
+              >
+                <button
+                  type="button"
+                  (click)="removeProduct(product.idproducts)"
+                  class="quantity-btn remove"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                </button>
+                <span class="quantity-display">
+                  {{ amount(product.idproducts) }}
+                </span>
+                <button
+                  type="button"
+                  (click)="
+                    addProduct(
+                      product.idproducts,
+                      product.price,
+                      product.name,
+                      product.name_category
+                    )
+                  "
+                  class="quantity-btn add"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+
+        @if (!favoriteProducts().length && !loading) {
+          <div class="empty-favorites">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              style="width: 64px; height: 64px; margin: 0 auto 1rem; opacity: 0.3;"
+            >
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+            <h3>No tienes favoritos aún</h3>
+            <p>Ve al menú y marca algunos productos como favoritos.</p>
+            <button 
+              routerLink="/private/menu" 
+              style="margin-top: 1rem; padding: 0.5rem 1.5rem; background: var(--primary-color, #ff6b35); color: white; border: none; border-radius: 8px; cursor: pointer;"
+            >
+              Ir al menú
+            </button>
+          </div>
+        }
+
+        @if (loading) {
+          <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+            <p>Cargando favoritos...</p>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+
+  @if (orderDetailsArray().controls.length > 0 && !orderEmpty()) {
+    <aside class="cart-panel">
+      <div class="cart-header">
+        <div class="cart-header-content">
+          <h3 class="cart-title">Tu Orden</h3>
+          <span class="cart-badge">
+            {{ orderDetailsArray().controls.length }}
+          </span>
+        </div>
+        <p class="cart-subtitle">
+          {{ orderDetailsArray().controls.length }} artículo(s) agregado(s)
+        </p>
+      </div>
+
+      <div class="cart-items" formArrayName="order_details">
+        @for (product of orderDetailsArray().controls; track product; let productindex = $index) {
+          <div class="cart-item">
+            <div class="item-header">
+              <h4 class="item-name">
+                {{ filterByProduct(product.value.products_idproducts)?.name }}
+              </h4>
+              <span class="item-quantity-badge">
+                ×{{ product.value.amount }}
+              </span>
+            </div>
+
+            @if (
+              filterByIngredient(
+                'required',
+                0,
+                filterByProduct(product.value.products_idproducts)?.ingredients,
+                product.value.products_idproducts,
+                product.value.amount
+              )?.length
+            ) {
+              <div class="ingredients-section">
+                <p class="ingredients-label">Sin</p>
+                <div class="ingredients-grid">
+                  @for (ingredient of filterByIngredient(
+                    'required',
+                    0,
+                    filterByProduct(product.value.products_idproducts)?.ingredients,
+                    product.value.products_idproducts,
+                    product.value.amount
+                  ); track ingredient.idingredients) {
+                    <label class="ingredient-checkbox">
+                      <input
+                        type="checkbox"
+                        [checked]="ingredientsSelected(productindex, 0, ingredient.name)"
+                        (change)="addIngredient(
+                          product.value.products_idproducts,
+                          ingredient.idingredients,
+                          0,
+                          !ingredientsSelected(productindex, 0, ingredient.name),
+                          product.value.amount,
+                          ingredient.name,
+                          0
+                        )"
+                      />
+                      <div class="ingredient-option exception">
+                        <img
+                          [src]="'../../../assets/' + ingredient.name + '.png'"
+                          [alt]="ingredient.name"
+                          class="ingredient-image"
+                        />
+                        <span class="ingredient-name">
+                          {{ ingredient.name }}
+                        </span>
+                      </div>
+                    </label>
+                  }
+                </div>
+              </div>
+            }
+
+            @if (
+              filterByIngredient(
+                'extra',
+                1,
+                filterByProduct(product.value.products_idproducts)?.ingredients,
+                product.value.products_idproducts,
+                product.value.amount
+              )?.length
+            ) {
+              <div class="ingredients-section">
+                <p class="ingredients-label">Extras</p>
+                <div class="ingredients-grid">
+                  @for (ingredient of filterByIngredient(
+                    'extra',
+                    1,
+                    filterByProduct(product.value.products_idproducts)?.ingredients,
+                    product.value.products_idproducts,
+                    product.value.amount
+                  ); track ingredient.idingredients) {
+                    <label class="ingredient-checkbox">
+                      <input
+                        type="checkbox"
+                        [checked]="ingredientsSelected(productindex, 1, ingredient.name)"
+                        (change)="addIngredient(
+                          product.value.products_idproducts,
+                          ingredient.idingredients,
+                          1,
+                          !ingredientsSelected(productindex, 1, ingredient.name),
+                          product.value.amount,
+                          ingredient.name,
+                          ingredient.cost
+                        )"
+                      />
+                      <div class="ingredient-option extra">
+                        <img
+                          [src]="'../../../assets/' + ingredient.name + '.png'"
+                          [alt]="ingredient.name"
+                          class="ingredient-image"
+                        />
+                        <span class="ingredient-name">
+                          {{ ingredient.name }}
+                        </span>
+                        <span class="ingredient-cost">
+                          {{ ingredient.cost | currency }}
+                        </span>
+                      </div>
+                    </label>
+                  }
+                </div>
+              </div>
+            }
+
+            <div [formGroupName]="productindex">
+              <textarea
+                formControlName="comments"
+                rows="2"
+                placeholder="Comentarios"
+                class="comments-textarea"
+              ></textarea>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="cart-footer">
+        <button routerLink="/private/order-view" class="continue-btn">
+          Continuar
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+  }
+</div>

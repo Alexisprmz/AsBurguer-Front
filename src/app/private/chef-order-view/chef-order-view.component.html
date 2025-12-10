@@ -1,0 +1,90 @@
+<div class="chef-page">
+  <div class="page-header">
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 13.87A4 4 0 017.41 6a5.11 5.11 0 011.05-1.54 5 5 0 017.08 0A5.11 5.11 0 0116.59 6 4 4 0 0118 13.87V21H6z"/>
+        <line x1="6" y1="17" x2="18" y2="17"/>
+      </svg>
+      Órdenes en Cocina
+    </h1>
+    <div class="orders-count">
+      <span class="count-badge">{{filterByStatus().length}}</span>
+      <span class="count-label">órdenes pendientes</span>
+    </div>
+  </div>
+
+  <section class="table-section">
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="filterByStatus()" #chefTable class="chef-table">
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-content">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Cliente
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="client-cell">
+              <div class="client-avatar">{{element.client.charAt(0).toUpperCase()}}</div>
+              <span class="client-name">{{element.client}}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comments">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-content">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              Comentarios
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="comments-cell">
+              @if (element.comments) {
+                <div class="comment-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                  </svg>
+                  <span>{{element.comments}}</span>
+                </div>
+              } @else {
+                <span class="no-comments">Sin comentarios especiales</span>
+              }
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="function">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-content">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m6-9h-6m0 6h6"/>
+              </svg>
+              Acciones
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="actions-cell">
+              <button class="btn-complete" (click)="openConfirmDialog(element)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                Realizar Pedido
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </div>
+  </section>
+</div>

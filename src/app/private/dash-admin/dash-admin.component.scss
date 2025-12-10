@@ -1,0 +1,293 @@
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: #f4f6f9;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-sidebar {
+  width: 250px;
+  background: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  .sidebar-logo {
+    h3 {
+      font-size: 1.5rem;
+      color: #00704a;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+  }
+
+
+  .sidebar-nav {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      a {
+        display: block;
+        padding: 0.75rem 1rem;
+        margin: 0.25rem 0;
+        color: #6b7280;
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 0.75rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f3f4f6;
+          color: #1f2937;
+        }
+      }
+
+      &.active a {
+        background: #00704a;
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+
+.main-content-wrapper {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  background: #f4f6f9;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+
+  .header-content {
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1f2937;
+      margin: 0 0 0.25rem 0;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #6b7280;
+    }
+  }
+
+  .btn-primary {
+    background: #00704a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #005a3b;
+    }
+  }
+}
+
+
+.kpi-focus-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .stat-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &.primary {
+      background: linear-gradient(135deg, #00b377 0%, #00704a 100%);
+    }
+
+    &.green {
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+
+      svg {
+        color: #1f2937;
+      }
+    }
+
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+      color: #ffffff;
+    }
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.1;
+  }
+
+  .stat-unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-left: 0.25rem;
+  }
+}
+
+
+.charts-grid-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .chart-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f3f4f6;
+    background: #fcfcfc;
+
+    .chart-header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.625rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.blue {
+        background: #e0f2fe;
+
+        svg {
+          color: #0ea5e9;
+        }
+      }
+
+      &.purple {
+        background: #ede9fe;
+
+        svg {
+          color: #8b5cf6;
+        }
+      }
+
+      &.orange {
+        background: #fff7ed;
+
+        svg {
+          color: #f97316;
+        }
+      }
+    }
+
+    .chart-info {
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 0.1rem 0;
+      }
+
+      p {
+        font-size: 0.9375rem;
+        color: #6b7280;
+        margin: 0;
+      }
+    }
+  }
+
+  .chart-content {
+    padding: 2rem;
+    background: #ffffff;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-sidebar {
+    display: none;
+  }
+
+  .main-content-wrapper {
+    padding: 1.5rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .header-content h1 {
+      font-size: 2rem;
+    }
+  }
+}
